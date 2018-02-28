@@ -1,0 +1,16 @@
+{
+  "name": "verotuki-lambda",
+  "version": "1.0.0",
+  "description": "AWS Lambda for providing verotuki API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": " — zip-file fileb://Lambda-Deployment.zip",
+    "predeploy": "zip -r Lambda-Deployment.zip * -x *.zip *.log"
+  },
+  "author": "Juho Perälä",
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^7.4.1"
+  }
+}
