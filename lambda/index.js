@@ -34,8 +34,6 @@ exports.handler = (event, context, callback) => {
     });
   };
 
-//  https://auutvau7zj.execute-api.eu-west-1.amazonaws.com/prod/verotukiAPI?ytunnus=2586213-3
-
   const queryCompanyDetails = yid => {
     let subsidy, tax;
     const client = new pg.Client(conn);
@@ -70,14 +68,19 @@ exports.handler = (event, context, callback) => {
       let query, params;
       if (yid) {
         queryCompanyDetails(yid);
+      } else if (name && county) {
+        queryCompany(
+          'SELECT * FROM "Company" WHERE county = $1 AND name ILIKE $2 ORDER BY name ASC LIMIT 100;',
+          [county, `%${name}%`]
+        );
       } else if (name) {
         queryCompany(
-          'SELECT * FROM "Company" WHERE name ILIKE $1 ORDER BY name ASC;',
+          'SELECT * FROM "Company" WHERE name ILIKE $1 ORDER BY name ASC LIMIT 100;',
           [`%${name}%`]
         );
       } else if (county) {
         queryCompany(
-          'SELECT * FROM "Company" WHERE county=$1 ORDER BY name ASC;',
+          'SELECT * FROM "Company" WHERE county=$1 ORDER BY name ASC LIMIT 100;',
           [county]
         );
       } else {

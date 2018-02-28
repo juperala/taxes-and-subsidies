@@ -1,27 +1,15 @@
 import React, { Component } from "react";
-//import logo from "./logo.svg";
 import "./App.css";
 import { Switch, Route, withRouter } from "react-router-dom";
 import AppBar from "material-ui/AppBar";
-import AutoComplete from "material-ui/AutoComplete";
-import datasource from "./datasource";
 import Paper from "material-ui/Paper";
-import RaisedButton from "material-ui/RaisedButton";
-import { cyan500 } from "material-ui/styles/colors.js";
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from "material-ui/Table";
-import TextField from "material-ui/TextField";
+import SearchForm from "./SearchForm";
 import CompanyDetails from "./CompanyDetails";
+import CompanyList from "./CompanyList";
 
-const style = {
+const paperStyle = {
   height: "80%",
-  width: "80%",
+  width: "90%",
   margin: 20,
   padding: 20,
   textAlign: "center",
@@ -35,30 +23,22 @@ class App extends Component {
       search: undefined,
       companies: []
     };
-    this.handleSearchByName = this.handleSearchByName.bind(this);
-    this.handleSearchByCounty = this.handleSearchByCounty.bind(this);
+    this.doSearch = this.doSearch.bind(this);
     this.handleCellClick = this.handleCellClick.bind(this);
   }
 
-  handleSearchByName(event, value) {
-    this.setState({ search: value });
-  }
+  doSearch(name, county) {
+    console.log(`doSearch: ${name},  ${county}`);
+    let query = `https://auutvau7zj.execute-api.eu-west-1.amazonaws.com/prod/verotukiAPI?`;
+    if (name && county) {
+      query = query.concat(`name=${name}&county=${county}`);
+    } else if (name) {
+      query = query.concat(`name=${name}`);
+    } else if (county) {
+      query = query.concat(`county=${county}`);
+    }
 
-  doSearch() {
-    fetch(
-      `https://auutvau7zj.execute-api.eu-west-1.amazonaws.com/prod/verotukiAPI?name=${
-        this.state.search
-      }`
-    )
-      .then(result => result.json())
-      .then(companies => this.setState({ companies }));
-  }
-
-  handleSearchByCounty(value, index) {
-    console.log(`handleSearchByCounty: ${value},  ${index}`);
-    fetch(
-      `https://auutvau7zj.execute-api.eu-west-1.amazonaws.com/prod/verotukiAPI?county=${value}`
-    )
+    fetch(query)
       .then(result => result.json())
       .then(companies => this.setState({ companies }));
   }
@@ -69,87 +49,27 @@ class App extends Component {
   }
 
   render() {
-    const rows = this.state.companies.map(company => {
-      return (
-        <TableRow key={company.id}>
-          <TableRowColumn>{company.id}</TableRowColumn>
-          <TableRowColumn>{company.name}</TableRowColumn>
-          <TableRowColumn>{company.county}</TableRowColumn>
-        </TableRow>
-      );
-    });
-
     return (
-      <div style={{ textAlign: "center" }} /* className="App" */>
+      <div style={{ textAlign: "center" }}>
         <AppBar
-          showMenuIconButton={false} title="Yritysten tuloverot ja yritystuet"
+          showMenuIconButton={false}
+          title="Yritysten tuloverot ja yritystuet"
         />
-        <Paper style={style} zDepth={2}>
-          <div style={{ textAlign: "left" }}>
-            {/* <h1>Hae tietoja:</h1> */}
-            <TextField
-              hintText="Esim. Nokia"
-              onChange={this.handleSearchByName}
-              onKeyPress={ev => {
-                console.log(`Pressed keyCode ${ev.key}`);
-                if (ev.key === "Enter") {
-                  this.doSearch();
-                  ev.preventDefault();
-                }
-              }}
-              floatingLabelText="Hae nimellä tai y-tunnuksella:"
-              floatingLabelFixed={true}
-              fullWidth={true}
-            />
-            <AutoComplete
-              hintText="Esim. Oulu"
-              dataSource={datasource}
-              onNewRequest={this.handleSearchByCounty}
-              filter={AutoComplete.caseInsensitiveFilter}
-              floatingLabelText="Rajaa hakua paikkakunnalla:"
-              floatingLabelFixed={true}
-              fullWidth={true}
-            />
-            <div style={{ textAlign: "center" }} /* className="App" */>
-              <RaisedButton
-                label="HAE"
-                primary={true}
-                style={{
-                  margin: 12
-                }}
-              />
-            </div>
-          </div>
+        <Paper style={paperStyle} zDepth={2}>
+          <SearchForm doSearch={this.doSearch} />
         </Paper>
 
-        <Paper style={style} zDepth={2}>
+        <Paper style={paperStyle} zDepth={2}>
           <div style={{ textAlign: "left" }}>
             <Switch>
               <Route path="/company/:id" component={CompanyDetails} />
               <Route
                 path="/"
                 render={() => (
-                  <div>
-                  <h3 style={{color: cyan500}}>Hakutulokset:</h3>
-                    <Table
-                      selectable={false}
-                      onCellClick={this.handleCellClick}
-                    >
-                      <TableHeader
-                        displaySelectAll={false}
-                        enableSelectAll={false}
-                      >
-                        <TableRow>
-                          <TableHeaderColumn>Y-TUNNUS</TableHeaderColumn>
-                          <TableHeaderColumn>NIMI</TableHeaderColumn>
-                          <TableHeaderColumn>SIJAINTI</TableHeaderColumn>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody displayRowCheckbox={false} showRowHover>
-                        {rows}
-                      </TableBody>
-                    </Table>
-                  </div>
+                  <CompanyList
+                    handleCellClick={this.handleCellClick}
+                    companies={this.state.companies}
+                  />
                 )}
               />
             </Switch>
