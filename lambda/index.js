@@ -35,26 +35,42 @@ exports.handler = (event, context, callback) => {
   };
 
   const queryCompanyDetails = yid => {
-    let subsidy, tax;
+    let company, subsidy, tax;
     const client = new pg.Client(conn);
     client.connect();
     console.log("Connected to PostgreSQL database");
 
-    client.query('SELECT * FROM "Subsidy" WHERE id=$1;', [yid], (err, res) => {
-      console.log(`Subsidy Error: ${JSON.stringify(err)}`);
-      console.log(`Subsidy res: ${JSON.stringify(res)}`);
-      subsidy = res.rows;
+    client.query('SELECT * FROM "Company" WHERE id=$1;', [yid], (err, res) => {
+      company = res.rows[0];
       if (err) {
         done(err, res.rows);
         client.end();
       } else {
-        client.query('SELECT * FROM "Tax" WHERE id=$1;', [yid], (err, res) => {
-          console.log(`Tax Error: ${JSON.stringify(err)}`);
-          console.log(`Tax res: ${JSON.stringify(res)}`);
-          tax = res.rows;
-          done(err, { tax: tax, subsidy: subsidy });
-          client.end();
-        });
+        client.query(
+          'SELECT * FROM "Subsidy" WHERE id=$1;',
+          [yid],
+          (err, res) => {
+            console.log(`Subsidy Error: ${JSON.stringify(err)}`);
+            console.log(`Subsidy res: ${JSON.stringify(res)}`);
+            subsidy = res.rows;
+            if (err) {
+              done(err, res.rows);
+              client.end();
+            } else {
+              client.query(
+                'SELECT * FROM "Tax" WHERE id=$1;',
+                [yid],
+                (err, res) => {
+                  console.log(`Tax Error: ${JSON.stringify(err)}`);
+                  console.log(`Tax res: ${JSON.stringify(res)}`);
+                  tax = res.rows;
+                  done(err, { company: company, tax: tax, subsidy: subsidy });
+                  client.end();
+                }
+              );
+            }
+          }
+        );
       }
     });
   };
