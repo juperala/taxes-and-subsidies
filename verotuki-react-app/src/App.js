@@ -28,7 +28,6 @@ class App extends Component {
   }
 
   doSearch(name, county) {
-    console.log(`doSearch: ${name},  ${county}`);
     let query = `https://auutvau7zj.execute-api.eu-west-1.amazonaws.com/prod/verotukiAPI?`;
     if (name && county) {
       query = query.concat(`name=${name}&county=${county}`);
@@ -44,7 +43,6 @@ class App extends Component {
   }
 
   handleCellClick(row, column) {
-    console.log(`handleCellClick: ${row},  ${column}`);
     this.props.history.push(`/company/${this.state.companies[row].id}`);
   }
 
@@ -53,28 +51,41 @@ class App extends Component {
       <div style={{ textAlign: "center" }}>
         <AppBar
           showMenuIconButton={false}
-          title="Yritysten tuloverot ja yritystuet"
+          title="Tuloverot ja tuet"
         />
-        <Paper style={paperStyle} zDepth={2}>
-          <SearchForm doSearch={this.doSearch} />
-        </Paper>
+        <Switch>
+          <Route
+            path="/company/:id"
+            render={() => (
+              <Paper style={paperStyle} zDepth={2}>
+                <div style={{ textAlign: "left" }}>
+                  <CompanyDetails />
+                </div>
+              </Paper>
+            )}
+          />
+          <Route
+            path="/"
+            render={() => (
+              <div>
+                <Paper style={paperStyle} zDepth={2}>
+                  <div style={{ textAlign: "left" }}>
+                    <SearchForm doSearch={this.doSearch} />
+                  </div>
+                </Paper>
 
-        <Paper style={paperStyle} zDepth={2}>
-          <div style={{ textAlign: "left" }}>
-            <Switch>
-              <Route path="/company/:id" component={CompanyDetails} />
-              <Route
-                path="/"
-                render={() => (
-                  <CompanyList
-                    handleCellClick={this.handleCellClick}
-                    companies={this.state.companies}
-                  />
-                )}
-              />
-            </Switch>
-          </div>
-        </Paper>
+                <Paper style={paperStyle} zDepth={2}>
+                  <div style={{ textAlign: "left" }}>
+                    <CompanyList
+                      handleCellClick={this.handleCellClick}
+                      companies={this.state.companies}
+                    />
+                  </div>
+                </Paper>
+              </div>
+            )}
+          />
+        </Switch>
       </div>
     );
   }

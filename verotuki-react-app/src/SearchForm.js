@@ -50,7 +50,7 @@ class SearchForm extends Component {
           dataSource={datasource}
           onUpdateInput={this.handleUpdateCounty}
           filter={AutoComplete.caseInsensitiveFilter}
-          floatingLabelText="Rajaa hakua paikkakunnalla:"
+          floatingLabelText="Voit rajata hakua sijainnilla:"
           floatingLabelFixed={true}
           fullWidth={true}
         />

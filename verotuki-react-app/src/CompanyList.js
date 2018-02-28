@@ -24,7 +24,7 @@ const companyList = props => {
     <div>
       <h3 style={{ color: cyan500 }}>Hakutulokset:</h3>
       <Table selectable={false} onCellClick={props.handleCellClick}>
-        <TableHeader displaySelectAll={false} enableSelectAll={false}>
+        <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
           <TableRow>
             <TableHeaderColumn>Y-TUNNUS</TableHeaderColumn>
             <TableHeaderColumn>NIMI</TableHeaderColumn>

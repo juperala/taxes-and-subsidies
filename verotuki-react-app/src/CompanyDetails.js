@@ -8,11 +8,13 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
+import RaisedButton from "material-ui/RaisedButton";
 
 class CompanyDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      company: null,
       tax: [],
       subsidy: []
     };
@@ -26,62 +28,96 @@ class CompanyDetails extends Component {
     )
       .then(result => result.json())
       .then(details =>
-        this.setState({ tax: details.tax, subsidy: details.subsidy })
+        this.setState({
+          company: details.company,
+          tax: details.tax,
+          subsidy: details.subsidy
+        })
       );
   }
 
   render() {
+    const details = this.state.company && (
+      <TableRow>
+        <TableRowColumn>{this.state.company.id}</TableRowColumn>
+        <TableRowColumn>{this.state.company.name}</TableRowColumn>
+        <TableRowColumn>{this.state.company.county}</TableRowColumn>
+      </TableRow>
+    );
+
     const taxes = this.state.tax.map(tax => {
-        return (
-          <TableRow key={`${tax.id}-${tax.year}`}>
-            <TableRowColumn>{tax.tax_income}</TableRowColumn>
-            <TableRowColumn>{tax.tax}</TableRowColumn>
-            <TableRowColumn>{tax.tax_outstanding}</TableRowColumn>
-            <TableRowColumn>{tax.year}</TableRowColumn>
-          </TableRow>
-        );
-      });
-        
-      const subsidies = this.state.subsidy.map(subsidy => {
-        return (
-          <TableRow key={subsidy.pk}>
-            <TableRowColumn>{subsidy.sum}</TableRowColumn>
-            <TableRowColumn>{subsidy.type}</TableRowColumn>
-            <TableRowColumn>{subsidy.source}</TableRowColumn>
-            <TableRowColumn>{subsidy.year}</TableRowColumn>
-          </TableRow>
-        );
-      });
+      return (
+        <TableRow key={`${tax.id}-${tax.year}`}>
+          <TableRowColumn>{tax.tax_income}</TableRowColumn>
+          <TableRowColumn>{tax.tax}</TableRowColumn>
+          <TableRowColumn>{tax.tax_advance}</TableRowColumn>
+          <TableRowColumn>{tax.tax_return}</TableRowColumn>
+          <TableRowColumn>{tax.tax_outstanding}</TableRowColumn>
+          <TableRowColumn>{tax.year}</TableRowColumn>
+        </TableRow>
+      );
+    });
+
+    const subsidies = this.state.subsidy.map(subsidy => {
+      return (
+        <TableRow key={subsidy.pk}>
+          <TableRowColumn>{subsidy.type}</TableRowColumn>
+          <TableRowColumn>{subsidy.source}</TableRowColumn>
+          <TableRowColumn>{subsidy.sum}</TableRowColumn>
+          <TableRowColumn>{subsidy.loan}</TableRowColumn>
+          <TableRowColumn>{subsidy.year}</TableRowColumn>
+        </TableRow>
+      );
+    });
 
     return (
       <div>
-        <h1>Verot</h1>
-        <Table selectable={false} onCellClick={this.handleCellClick}>
-          <TableHeader displaySelectAll={false} enableSelectAll={false}>
+        <RaisedButton
+          label="< TAKAISIN"
+          primary={true}
+          onClick={() => {this.props.history.push(`/`)}}
+          style={{
+            margin: 12
+          }}
+        />
+        <p>Perustiedot:</p>
+        <Table selectable={false}>
+          <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
             <TableRow>
-              <TableHeaderColumn>VEROTETTAVA TULO</TableHeaderColumn>
+            <TableHeaderColumn>Y-TUNNUS</TableHeaderColumn>
+              <TableHeaderColumn>NIMI</TableHeaderColumn>
+              <TableHeaderColumn>SIJAINTI</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>{details}</TableBody>
+        </Table>
+
+        <p>Verot:</p>
+        <Table selectable={false}>
+          <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn>TULO</TableHeaderColumn>
               <TableHeaderColumn>VERO</TableHeaderColumn>
+              <TableHeaderColumn>ENNAKKO</TableHeaderColumn>
+              <TableHeaderColumn>PALAUTUS</TableHeaderColumn>
               <TableHeaderColumn>JÄÄNNÖSVERO</TableHeaderColumn>
               <TableHeaderColumn>VUOSI</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody displayRowCheckbox={false} showRowHover>
-            {taxes}
-          </TableBody>
+          <TableBody displayRowCheckbox={false}>{taxes}</TableBody>
         </Table>
-        <h1>Tuet</h1>
-        <Table selectable={false} onCellClick={this.handleCellClick}>
-          <TableHeader displaySelectAll={false} enableSelectAll={false}>
+        <p>Tuet:</p>
+        <Table selectable={false}>
+          <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
             <TableRow>
-              <TableHeaderColumn>SUMMA</TableHeaderColumn>
-              <TableHeaderColumn>TUKi</TableHeaderColumn>
+              <TableHeaderColumn>PERUSTE</TableHeaderColumn>
               <TableHeaderColumn>MYÖNTÄJÄ</TableHeaderColumn>
+              <TableHeaderColumn>TUKI €</TableHeaderColumn>
+              <TableHeaderColumn>LAINA €</TableHeaderColumn>
               <TableHeaderColumn>VUOSI</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody displayRowCheckbox={false} showRowHover>
-            {subsidies}
-          </TableBody>
+          <TableBody displayRowCheckbox={false}>{subsidies}</TableBody>
         </Table>
       </div>
     );
