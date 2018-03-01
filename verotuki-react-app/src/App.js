@@ -9,9 +9,18 @@ import CompanyList from "./CompanyList";
 
 const paperStyle = {
   height: "80%",
-  width: "90%",
+  width: "95%",
   margin: 20,
   padding: 20,
+  textAlign: "center",
+  display: "inline-block"
+};
+
+const resultStyle = {
+  // height: "80%",
+  // width: "90%",
+  margin: 20,
+  // padding: 20,
   textAlign: "center",
   display: "inline-block"
 };
@@ -49,19 +58,16 @@ class App extends Component {
   render() {
     return (
       <div style={{ textAlign: "center" }}>
-        <AppBar
-          showMenuIconButton={false}
-          title="Tuloverot ja tuet"
-        />
+        <AppBar showMenuIconButton={false} title="Tuloverot ja tuet" />
         <Switch>
           <Route
             path="/company/:id"
             render={() => (
-              <Paper style={paperStyle} zDepth={2}>
-                <div style={{ textAlign: "left" }}>
-                  <CompanyDetails />
+                <div style={resultStyle}>
+                  <div style={{ textAlign: "left" }}>
+                    <CompanyDetails />
+                  </div>
                 </div>
-              </Paper>
             )}
           />
           <Route
@@ -74,14 +80,16 @@ class App extends Component {
                   </div>
                 </Paper>
 
-                <Paper style={paperStyle} zDepth={2}>
+                {/* <Paper style={paperStyle} zDepth={2}> */}
+                <div style={resultStyle}>
                   <div style={{ textAlign: "left" }}>
                     <CompanyList
                       handleCellClick={this.handleCellClick}
                       companies={this.state.companies}
                     />
                   </div>
-                </Paper>
+                </div>
+                {/* </Paper> */}
               </div>
             )}
           />

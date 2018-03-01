@@ -9,6 +9,7 @@ import {
   TableRowColumn
 } from "material-ui/Table";
 import RaisedButton from "material-ui/RaisedButton";
+import Divider from "material-ui/Divider";
 
 class CompanyDetails extends Component {
   constructor(props) {
@@ -75,16 +76,28 @@ class CompanyDetails extends Component {
         <RaisedButton
           label="< TAKAISIN"
           primary={true}
-          onClick={() => {this.props.history.push(`/`)}}
+          onClick={() => {
+            this.props.history.push(`/`);
+          }}
           style={{
             margin: 12
           }}
         />
-        <p>Perustiedot:</p>
+          <br/>
+          <br/>
         <Table selectable={false}>
-          <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
+          <TableHeader
+            displaySelectAll={false}
+            enableSelectAll={false}
+            adjustForCheckbox={false}
+          >
             <TableRow>
-            <TableHeaderColumn>Y-TUNNUS</TableHeaderColumn>
+              <TableHeaderColumn colSpan="3" style={{ textAlign: "center" }}>
+                <b>PERUSTIEDOT</b>
+              </TableHeaderColumn>
+            </TableRow>
+            <TableRow>
+              <TableHeaderColumn>Y-TUNNUS</TableHeaderColumn>
               <TableHeaderColumn>NIMI</TableHeaderColumn>
               <TableHeaderColumn>SIJAINTI</TableHeaderColumn>
             </TableRow>
@@ -92,9 +105,20 @@ class CompanyDetails extends Component {
           <TableBody displayRowCheckbox={false}>{details}</TableBody>
         </Table>
 
-        <p>Verot:</p>
+        <br/>
+          <br/>
+
         <Table selectable={false}>
-          <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
+          <TableHeader
+            displaySelectAll={false}
+            enableSelectAll={false}
+            adjustForCheckbox={false}
+          >
+            <TableRow>
+              <TableHeaderColumn colSpan="6" style={{ textAlign: "center" }}>
+                <b>VEROTIEDOT</b>
+              </TableHeaderColumn>
+            </TableRow>
             <TableRow>
               <TableHeaderColumn>TULO</TableHeaderColumn>
               <TableHeaderColumn>VERO</TableHeaderColumn>
@@ -106,9 +130,21 @@ class CompanyDetails extends Component {
           </TableHeader>
           <TableBody displayRowCheckbox={false}>{taxes}</TableBody>
         </Table>
-        <p>Tuet:</p>
+
+          <br/>
+          <br/>
+
         <Table selectable={false}>
-          <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
+          <TableHeader
+            displaySelectAll={false}
+            enableSelectAll={false}
+            adjustForCheckbox={false}
+          >
+            <TableRow>
+              <TableHeaderColumn colSpan="5" style={{ textAlign: "center" }}>
+                <b>YRITYSTUET</b>
+              </TableHeaderColumn>
+            </TableRow>
             <TableRow>
               <TableHeaderColumn>PERUSTE</TableHeaderColumn>
               <TableHeaderColumn>MYÖNTÄJÄ</TableHeaderColumn>
