@@ -6,6 +6,8 @@ import Paper from "material-ui/Paper";
 import SearchForm from "./SearchForm";
 import CompanyDetails from "./CompanyDetails";
 import CompanyList from "./CompanyList";
+import IconButton from "material-ui/IconButton";
+import NavigationArrowBack from "material-ui/svg-icons/navigation/arrow-back";
 
 const paperStyle = {
   height: "80%",
@@ -18,7 +20,7 @@ const paperStyle = {
 
 const resultStyle = {
   // height: "80%",
-  // width: "90%",
+  width: "90%",
   margin: 20,
   // padding: 20,
   textAlign: "center",
@@ -58,22 +60,28 @@ class App extends Component {
   render() {
     return (
       <div style={{ textAlign: "center" }}>
-        <AppBar showMenuIconButton={false} title="Tuloverot ja tuet" />
         <Switch>
           <Route
             path="/company/:id"
-            render={() => (
+            render={(props) => (
+              <div>
+                <AppBar  onLeftIconButtonClick={() => {
+            this.props.history.push(`/`);
+          }} title={`Y-Tunnus: ${props.match.params.id}`} iconElementLeft={<IconButton><NavigationArrowBack /></IconButton>}/>
+
                 <div style={resultStyle}>
                   <div style={{ textAlign: "left" }}>
                     <CompanyDetails />
                   </div>
                 </div>
+              </div>
             )}
           />
           <Route
             path="/"
             render={() => (
               <div>
+                <AppBar showMenuIconButton={false} title="Tuloverot ja tuet" />
                 <Paper style={paperStyle} zDepth={2}>
                   <div style={{ textAlign: "left" }}>
                     <SearchForm doSearch={this.doSearch} />

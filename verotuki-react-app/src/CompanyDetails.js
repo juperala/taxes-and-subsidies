@@ -8,8 +8,9 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
-import RaisedButton from "material-ui/RaisedButton";
-import Divider from "material-ui/Divider";
+//import RaisedButton from "material-ui/RaisedButton";
+//import { Card, CardHeader, CardText } from "material-ui/Card";
+//import MediaQuery from "react-responsive";
 
 class CompanyDetails extends Component {
   constructor(props) {
@@ -49,12 +50,22 @@ class CompanyDetails extends Component {
     const taxes = this.state.tax.map(tax => {
       return (
         <TableRow key={`${tax.id}-${tax.year}`}>
-          <TableRowColumn>{tax.tax_income}</TableRowColumn>
-          <TableRowColumn>{tax.tax}</TableRowColumn>
-          <TableRowColumn>{tax.tax_advance}</TableRowColumn>
-          <TableRowColumn>{tax.tax_return}</TableRowColumn>
-          <TableRowColumn>{tax.tax_outstanding}</TableRowColumn>
           <TableRowColumn>{tax.year}</TableRowColumn>
+          <TableRowColumn style={{ textAlign: "right" }}>
+            {tax.tax_income} €
+          </TableRowColumn>
+          <TableRowColumn style={{ textAlign: "right" }}>
+            {tax.tax} €
+          </TableRowColumn>
+          <TableRowColumn style={{ textAlign: "right" }}>
+            {tax.tax_advance} €
+          </TableRowColumn>
+          <TableRowColumn style={{ textAlign: "right" }}>
+            {tax.tax_return} €
+          </TableRowColumn>
+          <TableRowColumn style={{ textAlign: "right" }}>
+            {tax.tax_outstanding} €
+          </TableRowColumn>
         </TableRow>
       );
     });
@@ -62,18 +73,65 @@ class CompanyDetails extends Component {
     const subsidies = this.state.subsidy.map(subsidy => {
       return (
         <TableRow key={subsidy.pk}>
-          <TableRowColumn>{subsidy.type}</TableRowColumn>
-          <TableRowColumn>{subsidy.source}</TableRowColumn>
-          <TableRowColumn>{subsidy.sum}</TableRowColumn>
-          <TableRowColumn>{subsidy.loan}</TableRowColumn>
           <TableRowColumn>{subsidy.year}</TableRowColumn>
+          <TableRowColumn>{subsidy.source}</TableRowColumn>
+          <TableRowColumn>{subsidy.type}</TableRowColumn>
+          <TableRowColumn style={{ textAlign: "right" }}>
+            {subsidy.sum} €
+          </TableRowColumn>
+          <TableRowColumn style={{ textAlign: "right" }}>
+            {subsidy.loan} €
+          </TableRowColumn>
         </TableRow>
       );
     });
 
+    // const taxes2 = this.state.tax.map(tax => {
+    //   return (
+    //     <Card key={`${tax.id}-${tax.year}`}>
+    //       <CardHeader
+    //         title={tax.year}
+    //         // subtitle="Subtitle"
+    //         actAsExpander={true}
+    //         showExpandableButton={true}
+    //       />
+    //       {/* <CardActions>
+    //       <FlatButton label="Action1" />
+    //       <FlatButton label="Action2" />
+    //     </CardActions> */}
+    //       <CardText expandable={true}>
+    //         <Table selectable={false}>
+    //           <TableBody displayRowCheckbox={false}>
+    //             <TableRow key={`${tax.id}-${tax.year}`}>
+    //               <TableRowColumn>Verotulo</TableRowColumn>
+    //               <TableRowColumn>{tax.tax_income} €</TableRowColumn>
+    //             </TableRow>
+    //             <TableRow key={`${tax.id}-${tax.year}`}>
+    //               <TableRowColumn>Vero</TableRowColumn>
+    //               <TableRowColumn>{tax.tax} €</TableRowColumn>
+    //             </TableRow>
+    //             <TableRow key={`${tax.id}-${tax.year}`}>
+    //               <TableRowColumn>Ennakkovero</TableRowColumn>
+    //               <TableRowColumn>{tax.tax_advance} €</TableRowColumn>
+    //             </TableRow>
+    //             <TableRow key={`${tax.id}-${tax.year}`}>
+    //               <TableRowColumn>Veronpalautus</TableRowColumn>
+    //               <TableRowColumn>{tax.tax_return} €</TableRowColumn>
+    //             </TableRow>
+    //             <TableRow key={`${tax.id}-${tax.year}`}>
+    //               <TableRowColumn>Jäännösvero</TableRowColumn>
+    //               <TableRowColumn>{tax.tax_outstanding} €</TableRowColumn>
+    //             </TableRow>
+    //           </TableBody>
+    //         </Table>
+    //       </CardText>
+    //     </Card>
+    //   );
+    // });
+
     return (
-      <div>
-        <RaisedButton
+       <div>
+{/*         <RaisedButton
           label="< TAKAISIN"
           primary={true}
           onClick={() => {
@@ -83,77 +141,190 @@ class CompanyDetails extends Component {
             margin: 12
           }}
         />
-          <br/>
-          <br/>
-        <Table selectable={false}>
+
+        <br />
+        <br /> 
+ */}
+        <Table selectable={false} style={{ tableLayout: "auto" }}>
           <TableHeader
             displaySelectAll={false}
             enableSelectAll={false}
             adjustForCheckbox={false}
           >
             <TableRow>
-              <TableHeaderColumn colSpan="3" style={{ textAlign: "center" }}>
-                <b>PERUSTIEDOT</b>
+              <TableHeaderColumn
+                colSpan="3"
+                style={{ textAlign: "center", fontSize: "14px" }}
+              >
+                PERUSTIEDOT
               </TableHeaderColumn>
             </TableRow>
-            <TableRow>
+{/*             <TableRow>
               <TableHeaderColumn>Y-TUNNUS</TableHeaderColumn>
               <TableHeaderColumn>NIMI</TableHeaderColumn>
               <TableHeaderColumn>SIJAINTI</TableHeaderColumn>
-            </TableRow>
+            </TableRow> */}
           </TableHeader>
-          <TableBody displayRowCheckbox={false}>{details}</TableBody>
+          <TableBody displayRowCheckbox={false}>
+            <TableRow>
+              <TableRowColumn
+                style={{ color: "rgb(158,158,158)" }}
+              >
+                Y-TUNNUS
+              </TableRowColumn>
+              <TableRowColumn
+                style={{ color: "rgb(158,158,158)" }}
+              >
+                NIMI
+              </TableRowColumn>
+              <TableRowColumn
+                style={{  color: "rgb(158,158,158)" }}
+              >
+                VERO
+              </TableRowColumn>
+            </TableRow>
+            {details}
+          </TableBody>
         </Table>
 
-        <br/>
-          <br/>
+        <br />
+        <br />
 
-        <Table selectable={false}>
+{/*         <MediaQuery query="(max-width: 799px)">{taxes2}</MediaQuery>
+        <MediaQuery query="(min-width: 800px)">
+ */}    
+       <Table selectable={false} style={{ tableLayout: "auto" }}>
+            <TableHeader
+              displaySelectAll={false}
+              enableSelectAll={false}
+              adjustForCheckbox={false}
+            >
+              <TableRow>
+                <TableHeaderColumn
+                  colSpan="6"
+                  style={{ textAlign: "center", fontSize: "14px" }}
+                >
+                  VEROTIEDOT
+                </TableHeaderColumn>
+              </TableRow>
+              {/*               <TableRow>
+                <TableHeaderColumn>VUOSI</TableHeaderColumn>
+                <TableHeaderColumn style={{ textAlign: "right" }}>
+                  TULO
+                </TableHeaderColumn>
+                <TableHeaderColumn style={{ textAlign: "right" }}>
+                  VERO
+                </TableHeaderColumn>
+                <TableHeaderColumn style={{ textAlign: "right" }}>
+                  ENNAKKO
+                </TableHeaderColumn>
+                <TableHeaderColumn style={{ textAlign: "right" }}>
+                  PALAUTUS
+                </TableHeaderColumn>
+                <TableHeaderColumn style={{ textAlign: "right" }}>
+                  JÄÄNNÖSVERO
+                </TableHeaderColumn>
+              </TableRow> */}
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
+              <TableRow>
+                <TableRowColumn
+                  style={{ color: "rgb(158,158,158)" }}
+                >
+                  VUOSI
+                </TableRowColumn>
+                <TableRowColumn
+                  style={{ textAlign: "right", color: "rgb(158,158,158)" }}
+                >
+                  TULO
+                </TableRowColumn>
+                <TableRowColumn
+                  style={{ textAlign: "right", color: "rgb(158,158,158)" }}
+                >
+                  VERO
+                </TableRowColumn>
+                <TableRowColumn
+                  style={{ textAlign: "right", color: "rgb(158,158,158)" }}
+                >
+                  ENNAKKO
+                </TableRowColumn>
+                <TableRowColumn
+                  style={{ textAlign: "right", color: "rgb(158,158,158)" }}
+                >
+                  PALAUTUS
+                </TableRowColumn>
+                <TableRowColumn
+                  style={{ textAlign: "right", color: "rgb(158,158,158)" }}
+                >
+                  JÄÄNNÖSVERO
+                </TableRowColumn>
+              </TableRow>
+
+              {taxes}
+            </TableBody>
+          </Table>
+    {/*     </MediaQuery>
+ */}
+        <br />
+        <br />
+
+        <Table selectable={false} style={{ tableLayout: "auto" }}>
           <TableHeader
             displaySelectAll={false}
             enableSelectAll={false}
             adjustForCheckbox={false}
           >
             <TableRow>
-              <TableHeaderColumn colSpan="6" style={{ textAlign: "center" }}>
-                <b>VEROTIEDOT</b>
+              <TableHeaderColumn
+                colSpan="5"
+                style={{ textAlign: "center", fontSize: "14px" }}
+              >
+                YRITYSTUET
               </TableHeaderColumn>
             </TableRow>
-            <TableRow>
-              <TableHeaderColumn>TULO</TableHeaderColumn>
-              <TableHeaderColumn>VERO</TableHeaderColumn>
-              <TableHeaderColumn>ENNAKKO</TableHeaderColumn>
-              <TableHeaderColumn>PALAUTUS</TableHeaderColumn>
-              <TableHeaderColumn>JÄÄNNÖSVERO</TableHeaderColumn>
-              <TableHeaderColumn>VUOSI</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false}>{taxes}</TableBody>
-        </Table>
-
-          <br/>
-          <br/>
-
-        <Table selectable={false}>
-          <TableHeader
-            displaySelectAll={false}
-            enableSelectAll={false}
-            adjustForCheckbox={false}
-          >
-            <TableRow>
-              <TableHeaderColumn colSpan="5" style={{ textAlign: "center" }}>
-                <b>YRITYSTUET</b>
+            {/*           <TableRow>
+              <TableHeaderColumn style={{ textAlign: "center" }}>VUOSI</TableHeaderColumn>
+              <TableHeaderColumn style={{ textAlign: "center" }}>MYÖNTÄJÄ</TableHeaderColumn>
+              <TableHeaderColumn style={{ textAlign: "center" }}>PERUSTE</TableHeaderColumn>
+              <TableHeaderColumn style={{ textAlign: "center" }}>
+                TUKI €
               </TableHeaderColumn>
-            </TableRow>
-            <TableRow>
-              <TableHeaderColumn>PERUSTE</TableHeaderColumn>
-              <TableHeaderColumn>MYÖNTÄJÄ</TableHeaderColumn>
-              <TableHeaderColumn>TUKI €</TableHeaderColumn>
-              <TableHeaderColumn>LAINA €</TableHeaderColumn>
-              <TableHeaderColumn>VUOSI</TableHeaderColumn>
-            </TableRow>
+              <TableHeaderColumn style={{ textAlign: "center" }}>
+                LAINA €
+              </TableHeaderColumn>
+            </TableRow> */}
           </TableHeader>
-          <TableBody displayRowCheckbox={false}>{subsidies}</TableBody>
+          <TableBody displayRowCheckbox={false}>
+            <TableRow>
+              <TableRowColumn
+                style={{color: "rgb(158,158,158)" }}
+              >
+                VUOSI
+              </TableRowColumn>
+              <TableRowColumn
+                style={{color: "rgb(158,158,158)" }}
+                >
+                MYÖNTÄJÄ
+              </TableRowColumn>
+              <TableRowColumn
+                style={{color: "rgb(158,158,158)" }}
+                >
+                PERUSTE
+              </TableRowColumn>
+              <TableRowColumn
+                style={{ textAlign: "right", color: "rgb(158,158,158)" }}
+              >
+                TUKI
+              </TableRowColumn>
+              <TableRowColumn
+                style={{ textAlign: "right", color: "rgb(158,158,158)" }}
+              >
+                LAINA
+              </TableRowColumn>
+            </TableRow>
+
+            {subsidies}
+          </TableBody>
         </Table>
       </div>
     );

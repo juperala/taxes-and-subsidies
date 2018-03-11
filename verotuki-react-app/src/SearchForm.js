@@ -35,7 +35,7 @@ class SearchForm extends Component {
           hintText="Esim. Nokia"
           onChange={this.handleUpdateName}
           onKeyPress={ev => {
-            console.log(`Pressed keyCode ${ev.key}`);
+            //console.log(`Pressed keyCode ${ev.key}`);
             if (ev.key === "Enter") {
               this.handleSearch();
               ev.preventDefault();
