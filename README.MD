@@ -5,6 +5,10 @@ React based application for searching paid taxes and received subsidies of Finni
 - Frontend: React
 - Backend: PostgreSQL & NodeJS API (AWS RDS + AWS Lambda)
 
+## Website
+
+- https://verot.jperala.fi
+
 ## Data sources
 
 Data is based on open data provided by:
