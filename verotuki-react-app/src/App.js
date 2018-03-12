@@ -19,10 +19,8 @@ const paperStyle = {
 };
 
 const resultStyle = {
-  // height: "80%",
   width: "90%",
   margin: 20,
-  // padding: 20,
   textAlign: "center",
   display: "inline-block"
 };
@@ -59,7 +57,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="vero-app">
         <Switch>
           <Route
             path="/company/:id"

@@ -9,6 +9,11 @@ import {
   TableRowColumn
 } from "material-ui/Table";
 
+const titleStyle = { textAlign: "center", fontSize: "14px" };
+const rightStyle = { textAlign: "right" };
+const grayStyle = { color: "rgb(158,158,158)" };
+const grayRightStyle = { textAlign: "right", color: "rgb(158,158,158)" };
+
 class CompanyDetails extends Component {
   constructor(props) {
     super(props);
@@ -48,19 +53,13 @@ class CompanyDetails extends Component {
       return (
         <TableRow key={`${tax.id}-${tax.year}`}>
           <TableRowColumn>{tax.year}</TableRowColumn>
-          <TableRowColumn style={{ textAlign: "right" }}>
-            {tax.tax_income} €
-          </TableRowColumn>
-          <TableRowColumn style={{ textAlign: "right" }}>
-            {tax.tax} €
-          </TableRowColumn>
-          <TableRowColumn style={{ textAlign: "right" }}>
+          <TableRowColumn style={rightStyle}>{tax.tax_income} €</TableRowColumn>
+          <TableRowColumn style={rightStyle}>{tax.tax} €</TableRowColumn>
+          <TableRowColumn style={rightStyle}>
             {tax.tax_advance} €
           </TableRowColumn>
-          <TableRowColumn style={{ textAlign: "right" }}>
-            {tax.tax_return} €
-          </TableRowColumn>
-          <TableRowColumn style={{ textAlign: "right" }}>
+          <TableRowColumn style={rightStyle}>{tax.tax_return} €</TableRowColumn>
+          <TableRowColumn style={rightStyle}>
             {tax.tax_outstanding} €
           </TableRowColumn>
         </TableRow>
@@ -73,12 +72,8 @@ class CompanyDetails extends Component {
           <TableRowColumn>{subsidy.year}</TableRowColumn>
           <TableRowColumn>{subsidy.source}</TableRowColumn>
           <TableRowColumn>{subsidy.type}</TableRowColumn>
-          <TableRowColumn style={{ textAlign: "right" }}>
-            {subsidy.sum} €
-          </TableRowColumn>
-          <TableRowColumn style={{ textAlign: "right" }}>
-            {subsidy.loan} €
-          </TableRowColumn>
+          <TableRowColumn style={rightStyle}>{subsidy.sum} €</TableRowColumn>
+          <TableRowColumn style={rightStyle}>{subsidy.loan} €</TableRowColumn>
         </TableRow>
       );
     });
@@ -96,25 +91,16 @@ class CompanyDetails extends Component {
             adjustForCheckbox={false}
           >
             <TableRow>
-              <TableHeaderColumn
-                colSpan="3"
-                style={{ textAlign: "center", fontSize: "14px" }}
-              >
+              <TableHeaderColumn colSpan="3" style={titleStyle}>
                 PERUSTIEDOT
               </TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
             <TableRow>
-              <TableRowColumn style={{ color: "rgb(158,158,158)" }}>
-                Y-TUNNUS
-              </TableRowColumn>
-              <TableRowColumn style={{ color: "rgb(158,158,158)" }}>
-                NIMI
-              </TableRowColumn>
-              <TableRowColumn style={{ color: "rgb(158,158,158)" }}>
-                VERO
-              </TableRowColumn>
+              <TableRowColumn style={grayStyle}>Y-TUNNUS</TableRowColumn>
+              <TableRowColumn style={grayStyle}>NIMI</TableRowColumn>
+              <TableRowColumn style={grayStyle}>VERO</TableRowColumn>
             </TableRow>
             {details}
           </TableBody>
@@ -134,42 +120,19 @@ class CompanyDetails extends Component {
             adjustForCheckbox={false}
           >
             <TableRow>
-              <TableHeaderColumn
-                colSpan="6"
-                style={{ textAlign: "center", fontSize: "14px" }}
-              >
+              <TableHeaderColumn colSpan="6" style={titleStyle}>
                 VEROTIEDOT
               </TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
             <TableRow>
-              <TableRowColumn style={{ color: "rgb(158,158,158)" }}>
-                VUOSI
-              </TableRowColumn>
-              <TableRowColumn
-                style={{ textAlign: "right", color: "rgb(158,158,158)" }}
-              >
-                TULO
-              </TableRowColumn>
-              <TableRowColumn
-                style={{ textAlign: "right", color: "rgb(158,158,158)" }}
-              >
-                VERO
-              </TableRowColumn>
-              <TableRowColumn
-                style={{ textAlign: "right", color: "rgb(158,158,158)" }}
-              >
-                ENNAKKO
-              </TableRowColumn>
-              <TableRowColumn
-                style={{ textAlign: "right", color: "rgb(158,158,158)" }}
-              >
-                PALAUTUS
-              </TableRowColumn>
-              <TableRowColumn
-                style={{ textAlign: "right", color: "rgb(158,158,158)" }}
-              >
+              <TableRowColumn style={grayStyle}>VUOSI</TableRowColumn>
+              <TableRowColumn style={grayRightStyle}>TULO</TableRowColumn>
+              <TableRowColumn style={grayRightStyle}>VERO</TableRowColumn>
+              <TableRowColumn style={grayRightStyle}>ENNAKKO</TableRowColumn>
+              <TableRowColumn style={grayRightStyle}>PALAUTUS</TableRowColumn>
+              <TableRowColumn style={grayRightStyle}>
                 JÄÄNNÖSVERO
               </TableRowColumn>
             </TableRow>
@@ -192,35 +155,18 @@ class CompanyDetails extends Component {
             adjustForCheckbox={false}
           >
             <TableRow>
-              <TableHeaderColumn
-                colSpan="5"
-                style={{ textAlign: "center", fontSize: "14px" }}
-              >
+              <TableHeaderColumn colSpan="5" style={titleStyle}>
                 YRITYSTUET
               </TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
             <TableRow>
-              <TableRowColumn style={{ color: "rgb(158,158,158)" }}>
-                VUOSI
-              </TableRowColumn>
-              <TableRowColumn style={{ color: "rgb(158,158,158)" }}>
-                MYÖNTÄJÄ
-              </TableRowColumn>
-              <TableRowColumn style={{ color: "rgb(158,158,158)" }}>
-                PERUSTE
-              </TableRowColumn>
-              <TableRowColumn
-                style={{ textAlign: "right", color: "rgb(158,158,158)" }}
-              >
-                TUKI
-              </TableRowColumn>
-              <TableRowColumn
-                style={{ textAlign: "right", color: "rgb(158,158,158)" }}
-              >
-                LAINA
-              </TableRowColumn>
+              <TableRowColumn style={grayStyle}>VUOSI</TableRowColumn>
+              <TableRowColumn style={grayStyle}>MYÖNTÄJÄ</TableRowColumn>
+              <TableRowColumn style={grayStyle}>PERUSTE</TableRowColumn>
+              <TableRowColumn style={grayRightStyle}>TUKI</TableRowColumn>
+              <TableRowColumn style={grayRightStyle}>LAINA</TableRowColumn>
             </TableRow>
 
             {subsidies}

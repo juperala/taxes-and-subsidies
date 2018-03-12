@@ -1,5 +1,4 @@
 import React from "react";
-import { cyan500 } from "material-ui/styles/colors.js";
 import {
   Table,
   TableBody,
@@ -8,6 +7,8 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
+
+const titleStyle = { textAlign: "center", fontSize: "14px" };
 
 const companyList = props => {
   const rows = props.companies.map(company => {
@@ -22,9 +23,17 @@ const companyList = props => {
 
   return (
     <div>
-      <h3 style={{ color: cyan500 }}>Hakutulokset:</h3>
       <Table selectable={false} onCellClick={props.handleCellClick}>
-        <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
+        <TableHeader
+          displaySelectAll={false}
+          enableSelectAll={false}
+          adjustForCheckbox={false}
+        >
+          <TableRow>
+            <TableHeaderColumn colSpan="3" style={titleStyle}>
+              HAKUTULOKSET
+            </TableHeaderColumn>
+          </TableRow>
           <TableRow>
             <TableHeaderColumn>Y-TUNNUS</TableHeaderColumn>
             <TableHeaderColumn>NIMI</TableHeaderColumn>
