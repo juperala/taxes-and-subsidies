@@ -59,15 +59,23 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ textAlign: "center" }}>
+      <div className="App">
         <Switch>
           <Route
             path="/company/:id"
-            render={(props) => (
+            render={props => (
               <div>
-                <AppBar  onLeftIconButtonClick={() => {
-            this.props.history.push(`/`);
-          }} title={`Y-Tunnus: ${props.match.params.id}`} iconElementLeft={<IconButton><NavigationArrowBack /></IconButton>}/>
+                <AppBar
+                  onLeftIconButtonClick={() => {
+                    this.props.history.push(`/`);
+                  }}
+                  title={`Y-Tunnus: ${props.match.params.id}`}
+                  iconElementLeft={
+                    <IconButton>
+                      <NavigationArrowBack />
+                    </IconButton>
+                  }
+                />
 
                 <div style={resultStyle}>
                   <div style={{ textAlign: "left" }}>
