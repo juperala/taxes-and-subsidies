@@ -32,7 +32,7 @@ class SearchForm extends Component {
     return (
       <div style={{ textAlign: "left" }}>
         <TextField
-          hintText="Esim. Nokia"
+          hintText="Esim. Nokia Oyj"
           onChange={this.handleUpdateName}
           onKeyPress={ev => {
             if (ev.key === "Enter") {

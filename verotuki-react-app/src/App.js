@@ -11,7 +11,7 @@ import NavigationArrowBack from "material-ui/svg-icons/navigation/arrow-back";
 
 const paperStyle = {
   height: "80%",
-  width: "95%",
+  width: "85%",
   margin: 20,
   padding: 20,
   textAlign: "center",
@@ -88,13 +88,12 @@ class App extends Component {
             render={() => (
               <div>
                 <AppBar showMenuIconButton={false} title="Tuloverot ja tuet" />
-                <Paper style={paperStyle} zDepth={2}>
+                <Paper style={paperStyle} zDepth={1}>
                   <div style={{ textAlign: "left" }}>
                     <SearchForm doSearch={this.doSearch} />
                   </div>
                 </Paper>
 
-                {/* <Paper style={paperStyle} zDepth={2}> */}
                 <div style={resultStyle}>
                   <div style={{ textAlign: "left" }}>
                     <CompanyList
@@ -103,7 +102,6 @@ class App extends Component {
                     />
                   </div>
                 </div>
-                {/* </Paper> */}
               </div>
             )}
           />
