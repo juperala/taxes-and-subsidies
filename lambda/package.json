@@ -11,6 +11,6 @@
   "author": "Juho Perälä",
   "license": "MIT",
   "dependencies": {
-    "pg": "^7.4.1"
+    "pg": "^7.9.0"
   }
 }
